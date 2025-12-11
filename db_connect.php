@@ -1,21 +1,18 @@
 <?php
-require __DIR__ . '/vendor/autoload.php'; // Composer autoload
+require __DIR__ . '/vendor/autoload.php';
 
-// Get connection string from env
-$mongoUri = getenv('mongodb+srv://web_user:WebTest123@cluster0.ez5e6yf.mongodb.net/?appName=Cluster0'); // set this in Render and locally
-
+$mongoUri = getenv('MONGO_URI');
 if (!$mongoUri) {
-    die("MONGO_URI environment variable is not set.\n");
+    die("MONGO_URI is not set. Please configure MONGO_URI as an environment variable.\n");
 }
 
 try {
     $client = new MongoDB\Client($mongoUri);
     $db = $client->selectDatabase('paint_contracting');
-
-    // For testing: list collections
-    $collections = $db->listCollections();
+    // test
+    $cols = $db->listCollections();
     echo "<h3>Connected to paint_contracting</h3><ul>";
-    foreach ($collections as $c) {
+    foreach ($cols as $c) {
         echo "<li>" . htmlspecialchars($c->getName()) . "</li>";
     }
     echo "</ul>";

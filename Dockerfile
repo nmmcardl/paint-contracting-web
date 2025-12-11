@@ -9,8 +9,10 @@ RUN apt-get update && apt-get install -y \
     git \
     && rm -rf /var/lib/apt/lists/*
 
-# Install MongoDB PHP extension
-RUN pecl install mongodb && docker-php-ext-enable mongodb
+# Install MongoDB PHP extension (latest 2.x)
+RUN pecl install mongodb \ && docker-php-ext-enable mongodb
+
+
 
 # Copy Composer binary from official image
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
